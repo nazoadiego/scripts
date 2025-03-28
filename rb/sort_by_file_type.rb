@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require_relative 'helpers/screen_printer'
 
 # SortByFileType organizes files in a directory by moving them into subdirectories
 # based on their file extensions.
@@ -18,9 +19,9 @@ class SortByFileType
       next if file_extension.nil?
 
       folder, create_success = create_folder(file_extension).values_at(:folder, :success)
-
       move_success = move_to_folder(file, folder) if create_success
-      print_progress(move_success)
+
+      ScreenPrinter.print_progress(move_success)
     end
 
     true
@@ -31,7 +32,7 @@ class SortByFileType
   def directory_exists?
     return true if Dir.exist?(@directory)
 
-    puts 'The directory does not exist.'
+    ScreenPrinter.puts_red('The directory does not exist.')
     false
   end
 
@@ -56,20 +57,21 @@ class SortByFileType
     FileUtils.mv(File.join(@directory, file), File.join(folder, file))
     true
   rescue StandardError => e
-    puts "Error moving file #{file}: #{e.message}"
+    ScreenPrinter.puts_red("Error moving file #{file}: #{e.message}")
     false
-  end
-
-  # TODO: print in green/red
-  # TODO: print dots inline, no break line
-  def print_progress(success)
-    puts success ? '.' : 'x'
   end
 end
 
+# This condition prevents the script from running when loaded from a different file. 
+# For example, the test suite.
+# TODO: This might be better in different files. Or as a helper, passing a block.
+# Because this would happen with any script with tests.
 if __FILE__ == $PROGRAM_NAME
   puts 'Enter the directory to organize:'
   directory = gets.chomp
+  puts 'Organizing files...'
+  ScreenPrinter.linebreak
   SortByFileType.new(directory: directory).run
-  puts 'Files have been organized by file type.'
+  ScreenPrinter.linebreak
+  puts "#{ScreenPrinter.colored_text('Done!', ScreenPrinter::GREEN)} Files have been sorted successfully."
 end
