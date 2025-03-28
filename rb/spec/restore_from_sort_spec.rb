@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'fileutils'
 require 'tmpdir'
@@ -5,12 +7,12 @@ require_relative '../restore_from_sort'
 
 RSpec.describe 'RestoreFromSort' do
   let(:test_dir) { Dir.mktmpdir }
-  
+
   before(:each) do
     # Create test directory structure
     FileUtils.mkdir_p(File.join(test_dir, 'pdf'))
     FileUtils.mkdir_p(File.join(test_dir, 'txt'))
-    
+
     # Create test files in their respective folders
     FileUtils.touch(File.join(test_dir, 'pdf', 'test1.pdf'))
     FileUtils.touch(File.join(test_dir, 'pdf', 'document.with.dots.pdf'))

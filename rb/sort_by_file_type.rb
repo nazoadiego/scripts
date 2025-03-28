@@ -62,7 +62,7 @@ class SortByFileType
   end
 end
 
-# This condition prevents the script from running when loaded from a different file. 
+# This condition prevents the script from running when loaded from a different file.
 # For example, the test suite.
 # TODO: This might be better in different files. Or as a helper, passing a block.
 # Because this would happen with any script with tests.

@@ -1,0 +1,17 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1 # Set the desired Ruby version
+
+# Custom rules and overrides
+
+# I don't care for short methods that much
+# Put a reasonably high limit
+Metrics/MethodLength:
+  Max: 20
+
+# I don't care for short methods that much
+# Put a reasonably high limit
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+  - 'rb/spec/**/*'
