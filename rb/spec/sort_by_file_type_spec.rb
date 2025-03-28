@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
 require 'fileutils'
 require 'tmpdir'
 require_relative '../scripts/sort_by_file_type'

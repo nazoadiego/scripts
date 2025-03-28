@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
 require 'fileutils'
 require 'tmpdir'
 require_relative '../scripts/restore_from_sort'

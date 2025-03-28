@@ -10,7 +10,7 @@ Some useful scripts for day-to-day tasks. As well as utilities I use for work
 ![RSpec Tests](https://github.com/nazoadiego/scripts/workflows/RSpec%20Tests/badge.svg)
 
 Checkout to rb `cd rb`
-Run with `rspec spec`
+Run with `rspec rb`
 
 # Linting
 ![RuboCop](https://github.com/nazoadiego/scripts/workflows/RuboCop/badge.svg)
