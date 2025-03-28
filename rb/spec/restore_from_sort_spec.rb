@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'fileutils'
 require 'tmpdir'
-require_relative '../restore_from_sort'
+require_relative '../scripts/restore_from_sort'
 
 RSpec.describe 'RestoreFromSort' do
   let(:test_dir) { Dir.mktmpdir }

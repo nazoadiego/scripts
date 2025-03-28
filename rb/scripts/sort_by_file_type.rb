@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
-require_relative 'helpers/screen_printer'
+require_relative '../helpers/screen_printer'
 
 # SortByFileType organizes files in a directory by moving them into subdirectories
 # based on their file extensions.

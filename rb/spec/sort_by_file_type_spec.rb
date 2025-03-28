@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'fileutils'
 require 'tmpdir'
-require_relative '../sort_by_file_type'
+require_relative '../scripts/sort_by_file_type'
 
 RSpec.describe SortByFileType do
   let(:test_dir) { Dir.mktmpdir }
