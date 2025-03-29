@@ -9,7 +9,6 @@ Some useful scripts for day-to-day tasks. As well as utilities I use for work
 # Tests
 ![RSpec Tests](https://github.com/nazoadiego/scripts/workflows/RSpec%20Tests/badge.svg)
 
-Checkout to rb `cd rb`
 Run with `rspec rb`
 
 # Linting
