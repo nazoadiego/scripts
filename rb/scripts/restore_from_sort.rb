@@ -3,8 +3,7 @@
 require 'fileutils'
 require_relative '../helpers/screen_printer'
 
-# SortByFileType organizes files in a directory by moving them into subdirectories
-# based on their file extensions.
+# RestoreFilesFromSort restore files from type folders to root directory
 class RestoreFilesFromSort
   # @param directory [String] The path to the directory to organize
   def initialize(directory:)
