@@ -19,7 +19,7 @@ Run with `rubocop rb`
 # Roadmap
 - Benchmarking
 - CSV processing
-- AI utilities
+- AI utilities (Spin up Local LLM, Prompts for writing and coding, language learning, Obsidian, etc.)
 - Image processing
 - Audio processing
 - Download from ytb and convert to mp3 (tatsuro CLI)
