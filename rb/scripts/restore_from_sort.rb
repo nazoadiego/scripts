@@ -20,10 +20,7 @@ class RestoreFilesFromSort
       files.each do |file|
         success, message = move_to_root(origin_path: subdirectory_path, file: file).values_at(:success, :message)
 
-        if success
-          ScreenPrinter.print_progress(success)
-          puts message
-        end
+        ScreenPrinter.print_progress(success) if success
 
         ScreenPrinter.puts_red("Error moving file #{file}: #{message}") unless success
         next unless success
@@ -54,7 +51,8 @@ class RestoreFilesFromSort
   def subdirectories
     Dir.entries(@directory).select do |folder|
       path = File.join(@directory, folder)
-      File.directory?(path) && !['.', '..'].include?(folder)
+
+      File.directory?(path) && !folder.in?(['.', '..'])
     end
   end
 
@@ -74,7 +72,7 @@ class RestoreFilesFromSort
       }
     end
 
-    FileUtils.mv(origin, destination)
+    FileUtils.move(origin, destination)
     { success: true, file: file, message: "Moved: #{file} -> root directory" }
   rescue StandardError => e
     { success: false, file: file, message: "Error moving file #{file}: #{e.message}" }

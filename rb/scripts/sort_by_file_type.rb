@@ -54,7 +54,7 @@ class SortByFileType
   end
 
   def move_to_folder(file, folder)
-    FileUtils.mv(File.join(@directory, file), File.join(folder, file))
+    FileUtils.move(File.join(@directory, file), File.join(folder, file))
     true
   rescue StandardError => e
     ScreenPrinter.puts_red("Error moving file #{file}: #{e.message}")
