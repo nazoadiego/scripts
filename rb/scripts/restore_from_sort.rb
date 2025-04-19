@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'active_support/all'
 require_relative '../helpers/screen_printer'
 
 # RestoreFilesFromSort restore files from type folders to root directory
