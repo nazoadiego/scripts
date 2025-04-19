@@ -6,9 +6,9 @@ require_relative '../scripts/sort_by_file_type'
 
 RSpec.describe SortByFileType do
   let(:test_dir) { Dir.mktmpdir }
-  let(:sorter) { SortByFileType.new(directory: test_dir) }
+  let(:sorter) { described_class.new(directory: test_dir) }
 
-  before(:each) do
+  before do
     # Create test files
     FileUtils.touch(File.join(test_dir, 'test1.txt'))
     FileUtils.touch(File.join(test_dir, 'test2.pdf'))
@@ -16,28 +16,41 @@ RSpec.describe SortByFileType do
     FileUtils.touch(File.join(test_dir, 'no_extension'))
   end
 
-  after(:each) do
+  after do
     FileUtils.remove_entry test_dir
   end
 
   describe '#run' do
-    before(:each) do
+    before do
       sorter.run
     end
 
-    it 'creates folders for each file extension' do
-      expect(Dir.exist?(File.join(test_dir, 'txt'))).to be true
-      expect(Dir.exist?(File.join(test_dir, 'pdf'))).to be true
+    context 'when creating folders' do
+      it 'creates a folder for txt files' do
+        expect(Dir.exist?(File.join(test_dir, 'txt'))).to be true
+      end
+
+      it 'creates a folder for pdf files' do
+        expect(Dir.exist?(File.join(test_dir, 'pdf'))).to be true
+      end
     end
 
-    it 'moves files to their respective folders' do
-      expect(File.exist?(File.join(test_dir, 'txt', 'test1.txt'))).to be true
-      expect(File.exist?(File.join(test_dir, 'pdf', 'test2.pdf'))).to be true
-      expect(File.exist?(File.join(test_dir, 'pdf', 'test.with.dots.pdf'))).to be true
-    end
+    context 'when moving files' do
+      it 'moves the txt file' do
+        expect(File.exist?(File.join(test_dir, 'txt', 'test1.txt'))).to be true
+      end
 
-    it 'keeps files without extension in the root directory' do
-      expect(File.exist?(File.join(test_dir, 'no_extension'))).to be true
+      it 'moves the pdf file' do
+        expect(File.exist?(File.join(test_dir, 'pdf', 'test2.pdf'))).to be true
+      end
+
+      it 'moves a file with dots on its name' do
+        expect(File.exist?(File.join(test_dir, 'pdf', 'test.with.dots.pdf'))).to be true
+      end
+
+      it 'keeps files without extension in the root directory' do
+        expect(File.exist?(File.join(test_dir, 'no_extension'))).to be true
+      end
     end
   end
 
@@ -47,7 +60,7 @@ RSpec.describe SortByFileType do
     end
 
     it 'returns false when directory does not exist' do
-      non_existent_sorter = SortByFileType.new(directory: '/non/existent/path')
+      non_existent_sorter = described_class.new(directory: '/non/existent/path')
       expect(non_existent_sorter.send(:directory_exists?)).to be false
     end
   end

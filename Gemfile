@@ -9,4 +9,5 @@ gem 'rubocop', '~> 1.75'
 
 gem 'debug', '~> 1.10'
 
+gem 'rubocop-performance', require: false
 gem 'rubocop-rspec', '~> 3.5'
