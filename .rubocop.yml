@@ -28,10 +28,7 @@ Metrics/MethodLength:
 Naming/MethodParameterName:
   AllowedNames:
     - id
-    - q
-    - as
-    - of
-    - by
+  AllowNamesEndingInNumbers: false
 
 Naming/PredicateName:
   ForbiddenPrefixes:
