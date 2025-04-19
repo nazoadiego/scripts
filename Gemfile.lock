@@ -84,6 +84,10 @@ GEM
     rubocop-ast (1.44.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
+    rubocop-performance (1.25.0)
+      lint_roller (~> 1.1)
+      rubocop (>= 1.75.0, < 2.0)
+      rubocop-ast (>= 1.38.0, < 2.0)
     rubocop-rspec (3.6.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
@@ -107,6 +111,7 @@ DEPENDENCIES
   fileutils
   rspec (~> 3.12)
   rubocop (~> 1.75)
+  rubocop-performance
   rubocop-rspec (~> 3.5)
 
 BUNDLED WITH

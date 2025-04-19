@@ -8,7 +8,7 @@ RSpec.describe 'RestoreFromSort' do
   let(:test_dir) { Dir.mktmpdir }
   let(:restore_files) { RestoreFilesFromSort.new(directory: test_dir) }
 
-  before(:each) do
+  before do
     # Create test directory structure
     FileUtils.mkdir_p(File.join(test_dir, 'pdf'))
     FileUtils.mkdir_p(File.join(test_dir, 'txt'))
@@ -19,34 +19,41 @@ RSpec.describe 'RestoreFromSort' do
     FileUtils.touch(File.join(test_dir, 'txt', 'notes.txt'))
   end
 
-  after(:each) do
+  after do
     FileUtils.remove_entry test_dir
   end
 
   describe '#run' do
     context 'with non-conflicting files' do
-      before(:each) do
+      before do
         restore_files.run
       end
 
-      it 'moves files from type folders to root directory' do
+      it 'moves a pdf file to the root level' do
         expect(File.exist?(File.join(test_dir, 'test1.pdf'))).to be(true)
+      end
+
+      it 'moves a file with dots on its name to the root level' do
         expect(File.exist?(File.join(test_dir, 'document.with.dots.pdf'))).to be(true)
+      end
+
+      it 'moves a txt file to the root level' do
         expect(File.exist?(File.join(test_dir, 'notes.txt'))).to be(true)
       end
 
-      it 'removes empty type folders after moving files' do
-        expect(Dir.exist?(File.join(test_dir, 'pdf'))).to be false
-        expect(Dir.exist?(File.join(test_dir, 'txt'))).to be false
+      it 'removes empty type folder pdf' do
+        expect(Dir.exist?(File.join(test_dir, 'pdf'))).to be(false)
+      end
+
+      it 'removes empty type folder txt' do
+        expect(Dir.exist?(File.join(test_dir, 'txt'))).to be(false)
       end
     end
 
     context 'with conflicting files' do
-      before(:each) do
+      before do
         restore_files.run
-      end
 
-      before(:each) do
         # Create test directory structure
         FileUtils.mkdir_p(File.join(test_dir, 'pdf'))
         FileUtils.mkdir_p(File.join(test_dir, 'txt'))
@@ -56,8 +63,11 @@ RSpec.describe 'RestoreFromSort' do
         FileUtils.touch(File.join(test_dir, 'pdf', 'conflict.pdf'))
       end
 
-      it 'handles name conflicts by skipping existing files' do
+      it 'keeps the file at the root level' do
         expect(File.exist?(File.join(test_dir, 'conflict.pdf'))).to be(true)
+      end
+
+      it 'keeps the file in the extension folder' do
         expect(File.exist?(File.join(test_dir, 'pdf', 'conflict.pdf'))).to be(true)
       end
 
