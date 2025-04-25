@@ -26,3 +26,11 @@ alias zshconfig="code ~/.zshrc"
 
 # Easter eggs
 alias rubydance="ruby ~/ruby_egg.rb"
+
+# Lines of code
+alias count_rb="find app -iname "*.rb" -type f -exec cat {} \;| wc -l"
+alias count_jsx="find src -iname "*.jsx" -type f -exec cat {} \;| wc -l"
+alias count_js="find src -iname "*.js" -type f -exec cat {} \;| wc -l"
+
+# Rails
+alias rails_stats="bundle exec rake stats"
