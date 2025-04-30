@@ -2,6 +2,9 @@ ZSH_THEME="gozilla"
 
 plugins=(git ssh-agent zsh-autosuggestions)
 
+# Suffix Aliases
+alias -s rb=code
+
 # Checkout
 alias myscripts="cd ~/scripts"
 alias rbscripts="cd ~/scripts/rb"
