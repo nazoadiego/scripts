@@ -29,8 +29,6 @@ module CaseFormatter
         obj.to_s.underscore.to_sym
       when Hash
         obj.deep_transform_keys { |key| key.to_s.underscore.to_sym }
-      when ActionController::Parameters, ->(o) { o.class.superclass == Types::BaseInputObject } # TODO: can change to responds_to to_h
-        camel_to_snake_case(obj.to_h.deep_symbolize_keys)
       when Array
         obj.map { |item| camel_to_snake_case(item) }
       else
