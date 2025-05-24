@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CalculationErrors
   class InvalidOperandTypeError < ArgumentError
     def initialize(message = 'Operand can only be integers')
@@ -21,7 +23,7 @@ end
 class SimpleCalculator
   include CalculationErrors
 
-  TEMPLATE = '%{first_operand} %{operation} %{second_operand} = %{result}'.freeze
+  TEMPLATE = '%{first_operand} %{operation} %{second_operand} = %{result}'
 
   OPERATIONS = {
     addition: :+,
