@@ -8,6 +8,9 @@ plugins=(
         zsh-syntax-highlighting # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
 )
 
+# Suffix Aliases
+alias -s rb=code
+
 # Checkout
 alias myscripts="cd ~/scripts"
 alias rbscripts="cd ~/scripts/rb"
@@ -33,3 +36,11 @@ alias zshconfig="code ~/.zshrc"
 
 # Easter eggs
 alias rubydance="ruby ~/ruby_egg.rb"
+
+# Lines of code
+alias count_rb="find app -iname "*.rb" -type f -exec cat {} \;| wc -l"
+alias count_jsx="find src -iname "*.jsx" -type f -exec cat {} \;| wc -l"
+alias count_js="find src -iname "*.js" -type f -exec cat {} \;| wc -l"
+
+# Rails
+alias rails_stats="bundle exec rake stats"
