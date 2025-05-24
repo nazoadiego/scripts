@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require 'active_support/all'
+
 # CaseFormatter allows you to convert from and to snake_case and camelCase
 # It support nested elements as well, such as Arrays and Hashes
 module CaseFormatter
-  extend ActiveSupport::Concern # TODO: import active support or define the module differently
+  extend ActiveSupport::Concern
 
   included do
     def snake_to_camel_case(obj)

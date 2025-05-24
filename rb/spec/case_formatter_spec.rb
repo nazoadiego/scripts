@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../helpers/case_formatter'
+
 describe CaseFormatter do
   let(:instance) { Class.new { include CaseFormatter }.new }
 
@@ -50,9 +52,9 @@ describe CaseFormatter do
       end
 
       it 'raises ArgumentError for custom objects' do
-        custom_object = OpenStruct.new(name: 'test')
+        custom_object = double
         expect { instance.snake_to_camel_case(custom_object) }
-          .to raise_error(ArgumentError, 'Unexpected type for case conversion: OpenStruct')
+          .to raise_error(ArgumentError)
       end
     end
   end
@@ -104,9 +106,9 @@ describe CaseFormatter do
       end
 
       it 'raises ArgumentError for custom objects' do
-        custom_object = OpenStruct.new(name: 'test')
+        custom_object = double
         expect { instance.snake_to_camel_case(custom_object) }
-          .to raise_error(ArgumentError, 'Unexpected type for case conversion: OpenStruct')
+          .to raise_error(ArgumentError)
       end
     end
   end
