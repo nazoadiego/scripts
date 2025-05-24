@@ -34,6 +34,9 @@ Naming/PredicateName:
   ForbiddenPrefixes:
     - is_
 
+Style/Documentation:
+  Enabled: false
+
 Style/AccessModifierDeclarations:
   Enabled: false
 
@@ -246,6 +249,8 @@ Style/EmptyHeredoc: # new in 1.32
   Enabled: true
 Style/ExactRegexpMatch: # new in 1.51
   Enabled: true
+Style/FormatStringToken:
+  Enabled: false
 Style/FileEmpty: # new in 1.48
   Enabled: true
 Style/MagicCommentFormat: # new in 1.35
