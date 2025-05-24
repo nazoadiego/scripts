@@ -12,6 +12,7 @@ alias restore_from_sort="ruby ~/scripts/rb/restore_from_sort.rb"
 
 # utils
 alias reload="source ~/.zshrc"
+alias pretty_tail='tail -f log/development.log | grep --line-buffered -E "^{.*}$" | jq '\''walk(if type == "array" and (.[0] | type == "string") and (.[0] | test("^{")) then map(fromjson) else . end)'\'''
 
 # Git
 alias gcb="git branch --show-current | tr -d '\n' | pbcopy"
