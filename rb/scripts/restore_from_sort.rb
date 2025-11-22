@@ -12,7 +12,7 @@ class RestoreFilesFromSort
   end
 
   def run
-    return false unless directory_exists?
+    return unless directory_exists?
 
     subdirectories.each do |subdirectory|
       subdirectory_path = File.join(@directory, subdirectory)

@@ -67,14 +67,10 @@ class SimpleCalculator
 
   def validate_operator!
     raise UnsupportedOperation, "Unsupported operation: #{operation}" unless SUPPORTED_OPERATIONS.include?(operation)
-
-    true
   end
 
   def validate_operation!
     raise ZeroDivisionError if division_by_zero?
-
-    true
   end
 
   def division?

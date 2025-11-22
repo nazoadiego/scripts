@@ -30,7 +30,7 @@ Naming/MethodParameterName:
     - id
   AllowNamesEndingInNumbers: false
 
-Naming/PredicateName:
+Naming/PredicatePrefix:
   ForbiddenPrefixes:
     - is_
 
