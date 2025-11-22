@@ -10,13 +10,13 @@ class EvaluateNumber
   end
 
   # Best way obviously!
-  def self.using_a_class(first_number, second_number)
+  def self.using_a_class?(first_number, second_number)
     [first_number, second_number].all?(Integer)
   end
 
   # Passing a method that return a lambda
   # It's nice because you can leverage the ? and ! convention :)
-  def self.passing_a_method(first_number, second_number)
+  def self.passing_a_method?(first_number, second_number)
     [first_number, second_number].all?(&:integer?)
   end
 
@@ -28,7 +28,7 @@ class EvaluateNumber
 
   # Using a lambda
   # can't use ! and ? in variables though
-  def self.using_a_lambda(first_number, second_number)
+  def self.using_a_lambda?(first_number, second_number)
     is_integer = lambda do |thing|
       thing.is_a?(Integer)
     end
