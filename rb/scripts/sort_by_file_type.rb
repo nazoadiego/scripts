@@ -3,22 +3,71 @@
 require 'fileutils'
 require_relative '../helpers/screen_printer'
 
+class Directory
+  attr_reader :path
+
+  def initialize(path:)
+    @path = path
+  end
+
+  def files
+    entries = Dir.entries(path).select { |f| File.file?(File.join(path, f)) }
+
+    entries.map { |file| MyScript::TargetFile.new(file:) }
+  end
+
+  def exists?
+    Dir.exist?(path)
+  end
+
+  # TODO: Does it really check if the folder already exists?
+  def create_folder_by_file_extension(file_extension)
+    folder = File.join(path, file_extension)
+    FileUtils.mkdir_p(folder)
+
+    { folder: folder, success: true }
+  end
+end
+
+module MyScript
+  class TargetFile
+    attr_reader :file
+
+    def initialize(file:)
+      @file = file
+    end
+
+    def to_str
+      file.to_str
+    end
+
+    def to_s
+      file.to_s
+    end
+
+    def extension
+      File.extname(file).downcase[1..]
+    end
+
+    def extension?
+      extension.present?
+    end
+  end
+end
+
 # SortByFileType organizes files in a directory by moving them into subdirectories
 # based on their file extensions.
 class SortByFileType
   # @param directory [String] The path to the directory to organize
-  def initialize(directory:)
-    @directory = directory
-  end
+  def run(path:)
+    @directory = Directory.new(path:)
 
-  def run
-    return unless directory_exists?
+    ScreenPrinter.puts_red('The directory does not exist.') unless @directory.exists?
 
-    files_from_directory.each do |file|
-      file_extension = file_extension(file)
-      next if file_extension.nil?
+    @directory.files.each do |file|
+      next unless file.extension?
 
-      folder, create_success = create_folder(file_extension).values_at(:folder, :success)
+      folder, create_success = @directory.create_folder_by_file_extension(file.extension).values_at(:folder, :success)
       move_success = move_to_folder(file, folder) if create_success
 
       ScreenPrinter.print_progress(move_success)
@@ -29,32 +78,8 @@ class SortByFileType
 
   private
 
-  def directory_exists?
-    return true if Dir.exist?(@directory)
-
-    ScreenPrinter.puts_red('The directory does not exist.')
-    false
-  end
-
-  # TODO: Does it really check if the folder already exists?
-  def create_folder(file_extension)
-    folder = File.join(@directory, file_extension)
-    FileUtils.mkdir_p(folder)
-
-    { folder: folder, success: true }
-  end
-
-  def files_from_directory
-    Dir.entries(@directory).select { |f| File.file?(File.join(@directory, f)) }
-  end
-
-  # No dot!
-  def file_extension(file)
-    File.extname(file).downcase[1..]
-  end
-
   def move_to_folder(file, folder)
-    FileUtils.move(File.join(@directory, file), File.join(folder, file))
+    FileUtils.move(File.join(@directory.path, file), File.join(folder, file))
     true
   rescue StandardError => e
     ScreenPrinter.puts_red("Error moving file #{file}: #{e.message}")
@@ -68,10 +93,10 @@ end
 # Because this would happen with any script with tests.
 if __FILE__ == $PROGRAM_NAME
   puts 'Enter the directory to organize:'
-  directory = gets.chomp
+  path = gets.chomp
   puts 'Organizing files...'
   ScreenPrinter.linebreak
-  SortByFileType.new(directory: directory).run
+  SortByFileType.run(path:)
   ScreenPrinter.linebreak
   puts "#{ScreenPrinter.colored_text('Done!', ScreenPrinter::GREEN)} Files have been sorted successfully."
 end

@@ -4,9 +4,9 @@ require 'fileutils'
 require 'tmpdir'
 require_relative '../scripts/sort_by_file_type'
 
-RSpec.describe SortByFileType do
+describe SortByFileType do
   let(:test_dir) { Dir.mktmpdir }
-  let(:sorter) { described_class.new(directory: test_dir) }
+  let(:action) { described_class.new }
 
   before do
     # Create test files
@@ -22,7 +22,7 @@ RSpec.describe SortByFileType do
 
   describe '#run' do
     before do
-      sorter.run
+      action.run(path: test_dir)
     end
 
     context 'when creating folders' do
@@ -54,14 +54,18 @@ RSpec.describe SortByFileType do
     end
   end
 
-  describe '#directory_exists?' do
-    it 'returns true when directory exists' do
-      expect(sorter.send(:directory_exists?)).to be true
-    end
+  describe Directory do
+    let(:directory) { described_class.new(path: test_dir) }
+    let(:non_existent_directory) { described_class.new(path: 'non_existent_directory') }
 
-    it 'returns false when directory does not exist' do
-      non_existent_sorter = described_class.new(directory: '/non/existent/path')
-      expect(non_existent_sorter.send(:directory_exists?)).to be false
+    describe '#exists?' do
+      it 'returns true when directory exists' do
+        expect(directory.exists?).to be true
+      end
+
+      it 'returns false when directory does not exist' do
+        expect(non_existent_directory.exists?).to be false
+      end
     end
   end
 end
