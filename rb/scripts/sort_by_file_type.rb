@@ -50,7 +50,7 @@ module MyScript
     end
 
     def extension?
-      extension.present?
+      !extension.nil?
     end
   end
 end
@@ -72,8 +72,6 @@ class SortByFileType
 
       ScreenPrinter.print_progress(move_success)
     end
-
-    true
   end
 
   private
@@ -96,7 +94,7 @@ if __FILE__ == $PROGRAM_NAME
   path = gets.chomp
   puts 'Organizing files...'
   ScreenPrinter.linebreak
-  SortByFileType.run(path:)
+  SortByFileType.new.run(path:)
   ScreenPrinter.linebreak
   puts "#{ScreenPrinter.colored_text('Done!', ScreenPrinter::GREEN)} Files have been sorted successfully."
 end
