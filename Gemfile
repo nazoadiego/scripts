@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'activesupport', '~> 8.0', '>= 8.0.2'
+gem 'activesupport', '~> 8.1'
 gem 'fileutils'
 gem 'rspec', '~> 3.12', group: :development
 gem 'rubocop', '~> 1.75'
